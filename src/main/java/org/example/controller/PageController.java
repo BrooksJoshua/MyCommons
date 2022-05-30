@@ -26,7 +26,7 @@ public class PageController {
     @Autowired
     private CourseService courseService;
 
-    @RequestMapping(value = "/save", method = RequestMethod.GET)
+    @RequestMapping(value = "/save/bilibili", method = RequestMethod.GET)
     public String main(String[] args) throws IOException {
 
         String qualifiedName = "/Users/JoshuaBrooks/Documents/RoadMaps/bilibili/JAVA_SE/宋红康JVM.html";
