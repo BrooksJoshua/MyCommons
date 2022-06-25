@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,16 +21,30 @@ import java.util.Objects;
  * @description 纤体操作： 拷贝B站视频的html文件的<div class="cur-list"> 保存文件 然后请求该接口， 保存信息到本地DB
  * @date 2022-05-13 11:30
  */
-@RestController("/course")
-public class PageController {
+@RestController
+@RequestMapping("/courses")
+public class BilibliController {
 
     @Autowired
     private CourseService courseService;
 
+//    app:
+//    url:
+//    prefix: /Users/JoshuaBrooks/Documents/RoadMaps/bilibili
+//    course: /shiro/最适合小白入门的Shiro教程
+//    suffix: .html
+    @Value("${app.url.prefix}")
+    private String prefix;
+    @Value("${app.url.cname}")
+    private String cname;
+    @Value("${app.url.suffix}")
+    private String suffix;
+
+
     @RequestMapping(value = "/save/bilibili", method = RequestMethod.GET)
     public String main(String[] args) throws IOException {
-
-        String qualifiedName = "/Users/JoshuaBrooks/Documents/RoadMaps/bilibili/JAVA_SE/宋红康JVM.html";
+        //"/Users/JoshuaBrooks/Documents/RoadMaps/bilibili/mysql/新版MySQL DBA高级实战进阶班 MySQL8.0 姜承尧.html";
+        String qualifiedName = prefix + cname + suffix;
         String courseName = qualifiedName.substring(qualifiedName.lastIndexOf("/") + 1).split("\\.")[0];
         String line;
         StringBuffer sb = new StringBuffer();
